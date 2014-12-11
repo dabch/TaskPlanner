@@ -21,13 +21,11 @@ public class Aufgabe {
 		this.finished = 0;
 	}
 	
-	public int getTimeToFinish() {
-		long millisDL = deadline.getTimeInMillis();
-		long millisNow = Calendar.getInstance().getTimeInMillis();
-		System.out.println(millisDL);
-		System.out.println(millisNow);
-		System.out.println((millisDL - millisNow) / 1000 / 60 / 60);
-		return 0;
+	public long getTimeToFinish() {
+		SimpleDateFormat df = new SimpleDateFormat("DD HH:mm");
+		Date dl = deadline.getTime();
+		Date now = Calendar.getInstance().getTime();
+		return (dl.getTime() - now.getTime()) / 60000;
 	}
 
 	public String toString() {
