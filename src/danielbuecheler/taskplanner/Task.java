@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Aufgabe {
+public class Task {
 	private String name;
 	private String description;
 	private double timeNeeded;
@@ -12,7 +12,7 @@ public class Aufgabe {
 	private double importance;
 	private int finished;
 
-	public Aufgabe(String name, double wichtigkeitProzent, double zeitaufwandStd, Calendar deadline) {
+	public Task(String name, double wichtigkeitProzent, double zeitaufwandStd, Calendar deadline) {
 		this.name = name;
 		this.description = "";
 		this.importance = wichtigkeitProzent;
@@ -22,9 +22,10 @@ public class Aufgabe {
 	}
 	
 	public long getTimeToFinish() {
-		SimpleDateFormat df = new SimpleDateFormat("DD HH:mm");
+		SimpleDateFormat df = new SimpleDateFormat("dd HH:mm");
 		Date dl = deadline.getTime();
 		Date now = Calendar.getInstance().getTime();
+		System.out.println(new Date(dl.getTime() - now.getTime()));
 		return (dl.getTime() - now.getTime()) / 60000;
 	}
 
@@ -33,5 +34,9 @@ public class Aufgabe {
 		String returnString = this.getClass().getName() + "[name=" + name + ",beschreibung=" + description + ",zeitaufwand="
 				+ timeNeeded + ",deadline=" + sdf.format(deadline.getTime()) + ",wichtigkeit=" + importance + ",fertigstellung=" + finished + "]";
 		return returnString;
+	}
+	
+	public double getTQ() {
+		return importance * (timeNeeded / getTimeToFinish());
 	}
 }
