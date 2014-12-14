@@ -16,13 +16,15 @@ public class Task {
 		this.name = name;
 		this.description = "";
 		this.importance = wichtigkeitProzent;
-		this.timeNeeded = zeitaufwandStd;
+		this.timeNeeded = zeitaufwandStd * 60;
 		this.deadline = deadline;
 		this.finished = 0;
 	}
 	
+	/**
+	 * @return Zeit, die noch verbleibt bis zur Deadline in Minuten
+	 */
 	public long getTimeToFinish() {
-		SimpleDateFormat df = new SimpleDateFormat("dd HH:mm");
 		Date dl = deadline.getTime();
 		Date now = Calendar.getInstance().getTime();
 		System.out.println(new Date(dl.getTime() - now.getTime()));
