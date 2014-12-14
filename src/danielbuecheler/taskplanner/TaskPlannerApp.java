@@ -1,5 +1,7 @@
 package danielbuecheler.taskplanner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -20,13 +22,18 @@ public class TaskPlannerApp {
 		double zeitaufwand = scn.nextDouble();
 		System.out.println("Deadline:");
 		Calendar dl = Calendar.getInstance();
-		dl.set(2014, 11, 12, 14, 30);
+		SimpleDateFormat formatInputDate = new SimpleDateFormat("dd.MM.yy, HH:mm");
+		scn.nextLine();
+		String dlStr = scn.nextLine();
+		try {
+			dl.setTime(formatInputDate.parse(dlStr));
+		} catch (ParseException e) {}
 		System.out.println(dl.getTimeZone());
 		System.out.println(dl.getTime());
 		Task aufg = new Task(name, wichtigkeit, zeitaufwand, dl);
 		System.out.println(aufg);
 		System.out.println(aufg.getTimeToFinish());
-		System.out.println("TQ: " +  aufg.getTQ());
+		System.out.printf("TQ: %.2f",  aufg.getTQ());
 		scn.close();
 	}
 
