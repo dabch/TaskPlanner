@@ -9,8 +9,10 @@ import java.util.TimeZone;
 
 
 public class TaskPlannerApp {
-
+	private List<Task> taskList; //In dieser Liste werden die Termine, später evtl. nach TQ sortiert, gespeichert
+	
 	public static void main(String[] args) {
+		taskList = new ArrayList<>;
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Willkommen!");
 		System.out.println("Neuen Termin erstellen: ");
@@ -35,6 +37,11 @@ public class TaskPlannerApp {
 		System.out.println(aufg.getTimeToFinish());
 		System.out.printf("TQ: %.2f",  aufg.getTQ());
 		scn.close();
+		addToTaskList(aufg);
 	}
-
+	
+	public void addToTaskList(Task t){
+		taskList.add(t);
+		//TODO: Diesen Code anpassen, sodass Tasks nach TQ sortiert eingeordnet werden
+	}
 }
