@@ -2,17 +2,20 @@ package danielbuecheler.taskplanner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.TimeZone;
 
 
 public class TaskPlannerApp {
-	private List<Task> taskList; //in this (Array)List the Tasks will be saved (later maybe sorted by TQ)
+	private static List<Task> taskList; //in this (Array)List the Tasks will be saved (later maybe sorted by TQ)
 	
 	public static void main(String[] args) {
-		taskList = new ArrayList<>;
+		taskList = new ArrayList<>();
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Willkommen!");
 		System.out.println("Neuen Termin erstellen: ");
@@ -40,8 +43,8 @@ public class TaskPlannerApp {
 		addToTaskList(aufg);
 	}
 	
-	public void addToTaskList(Task t){
+	public static void addToTaskList(Task t){
 		taskList.add(t);
-		//TODO: Adapt this code in order to sort tasks by TQ
+		Collections.sort(taskList, new TaskComparatorByTQ());
 	}
 }
