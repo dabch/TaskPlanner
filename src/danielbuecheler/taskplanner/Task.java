@@ -15,30 +15,40 @@ public class Task {
 	public Task(String name, double wichtigkeitProzent, double zeitaufwandStd, Calendar deadline) {
 		this.name = name;
 		this.description = "";
-		this.importance = wichtigkeitProzent;
+		this.importance = wichtigkeitProzent / 100;
 		this.timeNeeded = zeitaufwandStd * 60;
 		this.deadline = deadline;
 		this.finished = 0;
 	}
-	
+
+	/**
+	 * @return name of the task
+	 */
+	public String getName() {
+		return name;
+	}
+
 	/**
 	 * @return Zeit, die noch verbleibt bis zur Deadline in Minuten
 	 */
 	public long getTimeToFinish() {
 		Date dl = deadline.getTime();
 		Date now = Calendar.getInstance().getTime();
-		System.out.println(new Date(dl.getTime() - now.getTime()));
 		return (dl.getTime() - now.getTime()) / 60000;
 	}
 
 	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy, HH:mm");
-		String returnString = this.getClass().getName() + "[name=" + name + ",beschreibung=" + description + ",zeitaufwand="
-				+ timeNeeded + ",deadline=" + sdf.format(deadline.getTime()) + ",wichtigkeit=" + importance + ",fertigstellung=" + finished + "]";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy HH:mm");
+		String returnString = this.getClass().getName() + "[name=" + name + ",beschreibung=" + description
+				+ ",zeitaufwand=" + timeNeeded + ",deadline=" + sdf.format(deadline.getTime()) + ",wichtigkeit="
+				+ importance + ",fertigstellung=" + finished + "]";
 		return returnString;
 	}
-	
+
 	public double getTQ() {
-		return importance * (timeNeeded / getTimeToFinish());
+		double ttf = getTimeToFinish();
+		double urgent = timeNeeded / ttf;
+		double tq = importance * (urgent);
+		return tq;
 	}
 }
