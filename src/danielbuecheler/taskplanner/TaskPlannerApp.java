@@ -15,32 +15,34 @@ public class TaskPlannerApp {
 	private static List<Task> taskList; //in this (Array)List the Tasks will be saved (later maybe sorted by TQ)
 	
 	public static void main(String[] args) {
-		taskList = new ArrayList<>();
 		Scanner scn = new Scanner(System.in);
-		System.out.println("Willkommen!");
-		System.out.println("Neuen Termin erstellen: ");
-		System.out.println("Name des Termins:");
-		String name = scn.nextLine();
-		System.out.println("Wichtigkeit in Prozent:");
-		double wichtigkeit = scn.nextDouble();
-		System.out.println("UngefÃ¤hrer Zeitaufwand in Stunden:");
-		double zeitaufwand = scn.nextDouble();
-		System.out.println("Deadline:");
-		Calendar dl = Calendar.getInstance();
-		SimpleDateFormat formatInputDate = new SimpleDateFormat("dd.MM.yy, HH:mm");
-		scn.nextLine();
-		String dlStr = scn.nextLine();
-		try {
-			dl.setTime(formatInputDate.parse(dlStr));
-		} catch (ParseException e) {}
-		System.out.println(dl.getTimeZone());
-		System.out.println(dl.getTime());
-		Task aufg = new Task(name, wichtigkeit, zeitaufwand, dl);
-		System.out.println(aufg);
-		System.out.println(aufg.getTimeToFinish());
-		System.out.printf("TQ: %.2f",  aufg.getTQ());
-		scn.close();
-		addToTaskList(aufg);
+		taskList = new ArrayList<>();
+		while(true) {
+			System.out.println("Willkommen!");
+			System.out.println("Neuen Termin erstellen: ");
+			System.out.println("Name des Termins:");
+			String name = scn.nextLine();
+			System.out.println("Wichtigkeit in Prozent:");
+			double wichtigkeit = scn.nextDouble();
+			System.out.println("UngefÃ¤hrer Zeitaufwand in Stunden:");
+			double zeitaufwand = scn.nextDouble();
+			System.out.println("Deadline:");
+			Calendar dl = Calendar.getInstance();
+			SimpleDateFormat formatInputDate = new SimpleDateFormat("dd.MM.yy HH:mm");
+			scn.nextLine();
+			String dlStr = scn.nextLine();
+			try {
+				dl.setTime(formatInputDate.parse(dlStr));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			Task aufg = new Task(name, wichtigkeit, zeitaufwand, dl);
+			System.out.println(aufg);
+			addToTaskList(aufg);
+			for(Task task : taskList) {
+				System.out.printf("Name: %s, TQ: %.2f%n", task.getName(), task.getTQ());
+			}
+		}
 	}
 	
 	public static void addToTaskList(Task t){
